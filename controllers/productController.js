@@ -52,39 +52,46 @@ const addProduct = async (req, res) => {
 
 // all-product product
 const listProducts = async (req, res) => {
-      try {
+    try {
         const products = await productModel.find();
         if (!products) {
-            return res.json({success: false, message: "Product Not Found"})
+            return res.json({ success: false, message: "Product Not Found" })
         };
-        
-        return res.json({success: true, products});
-      } catch (error) {
+
+        return res.json({ success: true, products });
+    } catch (error) {
         console.log(error);
-        return res.json({success: false, message: "Products Fetching Error"})
-        
-      }
+        return res.json({ success: false, message: "Products Fetching Error" })
+
+    }
 
 }
 // remove product
 const removeProduct = async (req, res) => {
-  try {
-    await productModel.findOneAndDelete(req.body.id);
-    return res.json({success: true, message: "Product Deleted successfully"})
-  } catch (error) {
-    console.log(error);
-    return res.json({success: false, message: "Product Id not found"})
-  }
+    try {
+        // const {id} = req.body;
+        // console.log(id);
+        // console.log("ok");
+        // return res.json({success: true, message: "Product Deleted successfully"});
+
+        await productModel.findOneAndDelete({_id:id});
+        // console.log(deleted);
+
+        return res.json({ success: true, message: "Product Deleted successfully" })
+    } catch (error) {
+        console.log(error);
+        return res.json({ success: false, message: "Product Id not found" })
+    }
 }
 // single product
 const singleProduct = async (req, res) => {
     try {
-        const {productId} = req.body;
+        const { productId } = req.body;
         const product = await productModel.findById(productId)
-        return res.json({success: true, product})
+        return res.json({ success: true, product })
     } catch (error) {
         console.log(error);
-        return res.json({success: false, message: "Product Id not found"})
+        return res.json({ success: false, message: "Product Id not found" })
     }
 }
 
