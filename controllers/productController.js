@@ -17,6 +17,9 @@ const addProduct = async (req, res) => {
             return res.json({ success: false, message: "All Details Required" });
         }
 
+        // console.log(sizes);
+        
+
         const images = [image1, image2, image3, image4].filter((item) => (item !== undefined));
 
         let imageUrl = await Promise.all(
@@ -32,8 +35,8 @@ const addProduct = async (req, res) => {
             price: Number(price),
             category,
             subCategory,
-            sizes: sizes.split(","),
-            bestseller: bestseller === "true" ? true : false,
+            sizes: JSON.parse(sizes),
+            bestseller: bestseller === "true" ? true : false, 
             image: imageUrl,
             date: Date.now()
         }
